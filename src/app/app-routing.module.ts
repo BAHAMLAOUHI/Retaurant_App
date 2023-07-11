@@ -11,6 +11,14 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full'
   },
+  {
+    path: 'cooker',
+    loadChildren: () => import('./cooker/cooker.module').then( m => m.CookerPageModule)
+  },
+  {
+    path: 'waiter',
+    loadChildren: () => import('./waiter/waiter.module').then( m => m.WaiterPageModule)
+  },
 ];
 
 @NgModule({
