@@ -1,10 +1,11 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Orders</ion-title>
+    <ion-title class="text-center">Orders</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <ion-card>
     <ion-card-content class="p-0 pt-2">
       <ion-list>
@@ -12,11 +13,13 @@
           <ion-thumbnail slot="start">
             <img alt="Silhouette of mountains" [src]="item.image" />
           </ion-thumbnail>
+          <div class="flex-col">
           <ion-label>{{ item.name }}</ion-label>
-          <ion-label>{{ item.room }}</ion-label>
-          <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="toggleItemState(item)">{{ item.state }}</button>
+          <ion-label>Room: {{ item.room }}</ion-label>
+        </div>
+          <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="toggleItemState(item)" slot="end">{{ item.state }}</button>
           <ng-container *ngIf="item.state === 'Delivered'">
-            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" (click)="RemoveItem(items,item)">X</button>
+            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" (click)="RemoveItem(item)" slot="end">X</button>
           </ng-container>
         </ion-item>
         
