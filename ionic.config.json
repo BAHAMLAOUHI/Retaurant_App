@@ -1,0 +1,7 @@
+{
+  "name": "helloDatiTablette",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
