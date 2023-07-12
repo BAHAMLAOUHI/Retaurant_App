@@ -5,27 +5,73 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+  <ion-segment color="primary" [(ngModel)]="selectedSegment" class="h-11">
+    <ion-segment-button value="primary">
+      <ion-label>All Orders</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="segment">
+      <ion-label>To serve</ion-label>
+    </ion-segment-button>
+  </ion-segment>
 
   <ion-card>
     <ion-card-content class="p-0 pt-2">
-      <ion-list>
-        <ion-item *ngFor="let item of items">
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" [src]="item.image" />
-          </ion-thumbnail>
-          <div class="flex-col">
-          <ion-label>{{ item.name }}</ion-label>
-          <ion-label>Room: {{ item.room }}</ion-label>
-        </div>
-          <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="toggleItemState(item)" slot="end">{{ item.state }}</button>
-          <ng-container *ngIf="item.state === 'Delivered'">
-            <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" (click)="RemoveItem(item)" slot="end">X</button>
+      <ion-list *ngIf="selectedSegment === 'primary'">
+        <ng-container *ngFor="let order of orders">
+          <ng-container *ngFor="let item of order.pack">
+            <ion-item>
+              <ion-thumbnail slot="start">
+                <img alt="Silhouette of mountains" [src]="item.image" class="w-14 h-14" />
+              </ion-thumbnail>
+              <div class="flex-col">
+                <ion-label>{{ item.name }}</ion-label>
+                <ion-label>Room: {{ item.room }}</ion-label>
+              </div>
+            </ion-item>
           </ng-container>
-        </ion-item>
-        
+        </ng-container>
       </ion-list>
+      
+      <div *ngIf="selectedSegment === 'segment'">
+        <ion-card-header>
+          <div class="">
+          <ion-card-title>Room: {{ orders[0].pack[0].room }}</ion-card-title>
+          <ion-item>
+            <ion-label>process :</ion-label>
+            <ion-badge color="tertiary" slot="end" class="mr-2">{{getWaitingCount()}}</ion-badge>
+            <ion-badge color="success" slot="end">{{getDeliveredCount()}}</ion-badge>
+          </ion-item>
+          </div>
+
+        </ion-card-header>
+      
+        <ion-card *ngFor="let item of orders[0].pack">
+          
+          <div class="flex justify-center pt-5">
+            <img [src]="item.image" alt="food" class="w-64 h-60" />
+          </div>
+          
+          <ion-card-header>
+            <ion-card-title>{{ item.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            Here's a small text description for the card content. Nothing more, nothing less.
+            <div class="flex justify-center gap-2">
+              <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="toggleItemState(item)"
+              slot="start">{{ item.state }}</button>
+            <ng-container *ngIf="item.state === 'Delivered'">
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full m"
+                 slot="end">X</button>
+            </ng-container>
+            </div>
+          </ion-card-content>
+          
+        </ion-card>
+        
+      </div>
+
+
     </ion-card-content>
   </ion-card>
-    
-  
 </ion-content>
+
