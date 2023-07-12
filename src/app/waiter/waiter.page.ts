@@ -18,6 +18,8 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/paneer.jpg?alt=media&token=f1307cea-e1b5-4408-bd25-50c27f39ce30',
           state: 'waiting',
           room: 26,
+          description:"Here's a small text description for the card content. Nothing more, nothing less.",
+          isHighlighted: false,
         },
         {
           name: 'Moroccan Skirt Steak',
@@ -25,6 +27,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/food.jpg?alt=media&token=abc7f9e0-f253-41b9-b6b6-6ecca7b550cf',
           state: 'waiting',
           room: 26,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
         {
           name: 'Simple Sumptuous Sea Bream',
@@ -32,6 +35,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/food3.jpg?alt=media&token=f9bf5aab-c75f-40ea-aca7-7c46d875c22b',
           state: 'waiting',
           room: 26,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
       ],
     },
@@ -44,6 +48,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/paneer.jpg?alt=media&token=f1307cea-e1b5-4408-bd25-50c27f39ce30',
           state: 'waiting',
           room: 3,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
         {
           name: 'Simple Sumptuous Sea Bream',
@@ -51,6 +56,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/food3.jpg?alt=media&token=f9bf5aab-c75f-40ea-aca7-7c46d875c22b',
           state: 'waiting',
           room: 3,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
       ],
     },
@@ -63,6 +69,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/paneer.jpg?alt=media&token=f1307cea-e1b5-4408-bd25-50c27f39ce30',
           state: 'waiting',
           room: 12,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
         {
           name: 'Moroccan Skirt Steak',
@@ -70,6 +77,7 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/food.jpg?alt=media&token=abc7f9e0-f253-41b9-b6b6-6ecca7b550cf',
           state: 'waiting',
           room: 12,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
         },
         {
           name: 'Simple Sumptuous Sea Bream',
@@ -77,6 +85,8 @@ export class WaiterPage implements OnInit {
             'https://firebasestorage.googleapis.com/v0/b/myecommerce-7b279.appspot.com/o/food3.jpg?alt=media&token=f9bf5aab-c75f-40ea-aca7-7c46d875c22b',
           state: 'waiting',
           room: 12,
+          description:"Here's a small text description for the card content. Nothing more, nothing less."
+
         },
       ],
     },
@@ -97,6 +107,10 @@ export class WaiterPage implements OnInit {
     return this.orders[0].pack.filter((item) => item.state === 'Delivered').length;
   }
   
+
+  highlightCard(item: any) {
+    item.isHighlighted = true;
+  }
 
   // RemoveItem(item: any): void {
   //   const index = this.orders.pack.indexOf(item);

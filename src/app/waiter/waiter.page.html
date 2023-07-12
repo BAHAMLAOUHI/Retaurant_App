@@ -15,7 +15,7 @@
   </ion-segment>
 
   <ion-card>
-    <ion-card-content class="p-0 pt-2">
+    <ion-card-content class="p-0 pt-3 pb-3 ">
       <ion-list *ngIf="selectedSegment === 'primary'">
         <ng-container *ngFor="let order of orders">
           <ng-container *ngFor="let item of order.pack">
@@ -33,19 +33,22 @@
       </ion-list>
       
       <div *ngIf="selectedSegment === 'segment'">
-        <ion-card-header>
-          <div class="">
+        <ion-card-header class="pb-0">
+          <div>
           <ion-card-title>Room: {{ orders[0].pack[0].room }}</ion-card-title>
           <ion-item>
             <ion-label>process :</ion-label>
             <ion-badge color="tertiary" slot="end" class="mr-2">{{getWaitingCount()}}</ion-badge>
             <ion-badge color="success" slot="end">{{getDeliveredCount()}}</ion-badge>
           </ion-item>
-          </div>
+          <div class="flex justify-center pt-3">
+          <button *ngIf="getWaitingCount() === 0" class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-3 rounded-full ml-2 "  >New Order</button>
+        </div>
+        </div>
 
         </ion-card-header>
       
-        <ion-card *ngFor="let item of orders[0].pack">
+        <ion-card *ngFor="let item of orders[0].pack" [ngClass]="{'bg-red-300': item.isHighlighted}">
           
           <div class="flex justify-center pt-5">
             <img [src]="item.image" alt="food" class="w-64 h-60" />
@@ -55,13 +58,13 @@
             <ion-card-title>{{ item.name }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            Here's a small text description for the card content. Nothing more, nothing less.
-            <div class="flex justify-center gap-2">
+            {{item.description}}
+            <div class="flex justify-center gap-2 mt-1">
               <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" (click)="toggleItemState(item)"
               slot="start">{{ item.state }}</button>
             <ng-container *ngIf="item.state === 'Delivered'">
-              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full m"
-                 slot="end">X</button>
+              <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full "
+                 slot="end" (click)=highlightCard(item) >X</button>
             </ng-container>
             </div>
           </ion-card-content>
@@ -74,4 +77,3 @@
     </ion-card-content>
   </ion-card>
 </ion-content>
-
