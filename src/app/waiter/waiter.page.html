@@ -1,23 +1,23 @@
 <ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title class="text-center">Orders</ion-title>
+  <ion-toolbar color="HelloBlue">
+    <ion-title class="text-center text-HelloBlue">Orders</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-segment color="primary" [(ngModel)]="selectedSegment" class="h-11">
+  <!-- <ion-segment color="primary" [(ngModel)]="selectedSegment" class="h-11">
     <ion-segment-button value="primary">
       <ion-label>All Orders</ion-label>
     </ion-segment-button>
     <ion-segment-button value="segment">
       <ion-label>To Serve</ion-label>
     </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
 
-  <ion-card>
+  <ion-card color="{#F5F4F8}">
     <ion-card-content class="p-0 pt-3 pb-3">
       <!-- to display all orders to the waiter ( first section )-->
-      <ion-list *ngIf="selectedSegment === 'primary'">  
+      <!-- <ion-list *ngIf="selectedSegment === 'primary'">  
         <ng-container *ngIf="orders.length > 0; else noItemsMessage">
           <ion-item>
             <ion-title class="w-auto pl-0 mb-3">
@@ -52,57 +52,99 @@
             <ion-label class="text-center">There are no orders at this moment.</ion-label>
           </ion-item>
         </ng-template>
-      </ion-list>
+      </ion-list> -->
 
       <!-- To serve section (the second one) -->
-      <div *ngIf="selectedSegment === 'segment'">
-        <ng-container *ngIf="orders.length > 0 && orders[0].pack.length > 0; else noItemsMessage">
-          <ion-card-header class="pb-0 pl-1">
-            <div>
-              <div class="flex justify-between items-center shadow-md rounded-md p-3 ml-5 w-72">
-                <ion-card-title>Room: {{ orders[0].pack[0].room }}</ion-card-title>
+      <!-- <div *ngIf="selectedSegment === 'segment'"> -->
+      <ng-container
+        *ngIf="orders.length > 0 && orders[0].pack.length > 0 && showContent; else noItemsMessage"
+      >
+        <ion-card-header class="pb-0 pl-1">
+          <div class="flex-col justify-center items-center">
+            <div class="flex-col">
+              <div
+                class="flex justify-between items-center shadow-md rounded-md p-3 ml-6 w-72"
+              >
+                <ion-card-title>
+                  <span class="text-HelloBlue"
+                    >Room: {{ orders[0].pack[0].room }}
+                  </span></ion-card-title
+                >
                 <div class="flex justify-center pt-3">
-                  <ion-button (click)="presentAlert()">Delivered</ion-button>
+                  <ion-button
+                    color="{{buttonColor}}"
+                    (click)="handleButtonClick()"
+                    >{{ buttonLabel }}</ion-button
+                  >
                 </div>
               </div>
-        
-              <!-- to display the listed orders  -->
-              <ion-card class="w-max">
-                <ion-card-content class="p-0 pt-3 pb-3">
-                  <ion-list>
-                    <ng-container *ngFor="let item of getOrderCounts()">
-                      <ion-item>
-                        <div class="flex gap-2">
-                          <ion-badge color="secondary">{{ item.count }}</ion-badge>
-                          <ion-label><b>{{ item.name }}</b></ion-label>
-                        </div>
-                      </ion-item>
-                    </ng-container>
-                  </ion-list>
-                </ion-card-content>
-              </ion-card>
+              <!-- <ion-item class="w-auto">
+                <ion-spinner name="lines-small" color="secondary"></ion-spinner>
+              </ion-item> -->
             </div>
+
+            <!-- to display the listed orders  -->
+            <ion-card class="w-max ml-6">
+              <ion-card-content class="p-0 pt-3 pb-3">
+                <ion-list>
+                  <ng-container *ngFor="let item of getOrderCounts()">
+                    <ion-item>
+                      <div class="flex gap-2">
+                        <ion-badge color="secondary"
+                          >{{ item.count }}</ion-badge
+                        >
+                        <ion-label
+                          ><b>
+                            <span class="text-HelloBlue"
+                              >{{ item.name }}</span
+                            ></b
+                          ></ion-label
+                        >
+                      </div>
+                    </ion-item>
+                  </ng-container>
+                </ion-list>
+              </ion-card-content>
+            </ion-card>
+          </div>
+        </ion-card-header>
+        <div class="flex-col">
+          <ion-card *ngFor="let item of orders[0].pack" class="mb-2 mt-2">
+            <ion-item button detail="false">
+              <ion-label>
+                <div class="flex justify-between">
+                  <h3 class="text-HelloBlue">{{ item.name }}</h3>
+                  <h3 class="text-HelloBlue">{{item.Price}}</h3>
+                </div>
+                <p>{{ item.description }}</p>
+              </ion-label>
+            </ion-item>
+            <!-- <div class="flex justify-center pt-5">
+            <img [src]="item.image" alt="food" class="w-64 h-60" />
+          </div>
+
+          <ion-card-header>
+            <ion-card-title>{{ item.name }}</ion-card-title>
           </ion-card-header>
-        
-          <ion-card *ngFor="let item of orders[0].pack">
-            <div class="flex justify-center pt-5">
-              <img [src]="item.image" alt="food" class="w-64 h-60" />
-            </div>
-        
-            <ion-card-header>
-              <ion-card-title>{{ item.name }}</ion-card-title>
-            </ion-card-header>
-            <ion-card-content>{{ item.description }}</ion-card-content>
+          <ion-card-content>{{ item.description }}</ion-card-content> -->
           </ion-card>
-        </ng-container>
-        
-        <ng-template #noItemsMessage>
-          <ion-item>
-            <ion-label class="text-center">No order to Serve</ion-label>
-          </ion-item>
-        </ng-template>
-        
-      </div>
+          <div class="flex justify-between pr-6 pl-6 mt-4">
+            <h2 class="text-HelloBlue">Total :</h2>
+            <h2 class="text-HelloBlue">{{getTotalPrice()}}</h2>
+          </div>
+          <hr class="mr-6 ml-6" />
+        </div>
+      </ng-container>
+
+      <ng-template #noItemsMessage>
+        <ion-item>
+          <ion-label class="text-center text-HelloBlue"
+            ><span class="text-HelloBlue">No order to Serve</span></ion-label
+          >
+        </ion-item>
+      </ng-template>
+
+      <!-- </div> -->
     </ion-card-content>
   </ion-card>
 </ion-content>
