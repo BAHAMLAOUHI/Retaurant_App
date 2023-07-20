@@ -58,8 +58,9 @@
       <!-- <div *ngIf="selectedSegment === 'segment'"> -->
       <ng-container
         *ngIf="orders.length > 0 && orders[0].pack.length > 0 && showContent; else noItemsMessage"
+        class="flex-col justify-center items-center"
       >
-        <ion-card-header class="pb-0 pl-1">
+        <ion-card-header class="pb-0 pl-1 w-80 justify-center items-center">
           <div class="flex-col justify-center items-center">
             <div class="flex-col">
               <div
