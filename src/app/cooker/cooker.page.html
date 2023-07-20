@@ -1,9 +1,184 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title >cooker</ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-title>cooker</ion-title>
+  </ion-toolbar> </ion-header>
 
-<ion-content [fullscreen]="true">
- 
+<ion-content [fullscreen]="true" mode="md">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">cooker</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-segment [(ngModel)]="selectedSegment">
+    <ion-segment-button value="waiting">
+      <ion-label>Waiting</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="inProgress">
+      <ion-label>In progress</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="ready">
+      <ion-label>Ready</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <ion-card *ngIf="selectedSegment === 'waiting'">
+    <div *ngFor="let order of orders ; let i = index" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+      <ion-card-header class="flex items-center ">
+        <ion-card-title class="text-4xl">OrderId: 3568415
+        </ion-card-title>
+        <p class="text-lg">Order date: Feb 16, 15:45 | <span class="text-yellow-300 font-bold">Room: A5-12</span>
+        </p>
+
+      </ion-card-header>
+
+      <ion-card-content *ngFor="let detail of order.details" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+        <ion-list [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }"
+          *ngIf="detail.status === 'waiting' || detail.status === 'canceled' ">
+          <ion-item>
+            <div class="grid grid-cols-3 items-center" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+              <div class="col-span-3 sm:col-span-3 flex">
+                <ion-button fill="solid" color="secondary" style="height: 80px;" class="rounded-full w-full"
+                  [disabled]="detail.status === 'canceled'" (click)="changeStatus(order.id, detail.id)">
+                  In progress
+                </ion-button>
+                <ion-button fill="solid" color="danger" style="height: 80px;" class="rounded-full w-full"
+                  (click)="cancelOrder(order.id, detail.id)">
+                  Cancel
+                </ion-button>
+              </div>
+
+              <img alt="Silhouette of mountains"
+                class="col-span-2 sm:col-span-1 p-10 hover:transform hover:scale-110 hover:transition hover:duration-300"
+                [src]="detail.image" />
+
+              <ion-card-header class="col-span-3 sm:col-span-2 pt-0">
+                <ion-card-title class="text-3xl flex items-center justify-start">{{ detail.name }}
+                  <span
+                    [ngClass]="[detail.status === 'canceled' ? 'text-red-500 text-lg font-bold' : '', detail.status === 'waiting' ? 'text-yellow-300 text-lg font-bold' : '']"
+                    class="p-1">{{ detail.status }}</span>
+                  <ion-icon name="close-circle-sharp" class="p-1" color="danger" size="small"
+                    *ngIf="detail.status === 'canceled'"></ion-icon>
+                  <ion-icon name="time-sharp" class="p-1" color="warning" size="small"
+                    *ngIf="detail.status === 'waiting'"></ion-icon>
+                </ion-card-title>
+                <ion-card-subtitle>{{ detail.note }}</ion-card-subtitle>
+                <div class="flex justify-between pt-2">
+                  <ion-card-subtitle class="font-bold">Quantity: {{ detail.quantity }}.</ion-card-subtitle>
+                  <ion-card-subtitle class="font-bold">Price: {{ detail.price }} DT</ion-card-subtitle>
+                </div>
+              </ion-card-header>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+
+    </div>
+
+  </ion-card>
+  <ion-card *ngIf="selectedSegment === 'inProgress'">
+    <div *ngFor="let order of orders ; let i = index" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+
+      <ion-card-header class="flex items-center ">
+        <ion-card-title class="text-4xl">OrderId: 3568415
+        </ion-card-title>
+        <p class="text-lg">Order date: Feb 16, 15:45 | <span class="text-yellow-300 font-bold">Room: A5-12</span>
+        </p>
+
+      </ion-card-header>
+
+      <ion-card-content *ngFor="let detail of order.details" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+        <ion-list [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }"
+          *ngIf="detail.status === 'inProgress' || detail.status === 'canceled' ">
+          <ion-item>
+
+            <div class="grid grid-cols-3 items-center " [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+
+              <div class="col-span-3 sm:col-span-3 ">
+                <ion-button fill="solid" style="
+            height: 80px;" class="rounded-full w-full" color="secondary" [disabled]="detail.status === 'canceled'"
+                  (click)="changeStatus(order.id, detail.id)">
+                  Ready
+                </ion-button>
+
+              </div>
+              <img alt="Silhouette of mountains"
+                class="col-span-3 sm:col-span-1  p-10  hover:transform hover:scale-110 hover:transition hover:duration-300"
+                [src]="detail.image" />
+
+              <ion-card-header class=" col-span-3 sm:col-span-2 pt-0">
+                <ion-card-title class="text-3xl flex items-center ">{{ detail.name}}
+
+                  <span
+                    [ngClass]="[detail.status === 'canceled' ? 'text-red-500 text-lg font-bold' : '', detail.status === 'inProgress' ? 'text-yellow-300 text-lg font-bold' : ''] "
+                    class="p-1">{{ detail.status }}</span>
+                  <ion-icon name="close-circle-sharp" class="p-1" color="danger" size="small"
+                    *ngIf="detail.status ==='canceled' "></ion-icon>
+                  <ion-icon name="hourglass-sharp" class="p-1" color="warning" size="small"
+                    *ngIf="detail.status ==='inProgress' "></ion-icon>
+                </ion-card-title>
+                <ion-card-subtitle>{{detail.note}}</ion-card-subtitle>
+                <div class="flex justify-between pt-2">
+                  <ion-card-subtitle class="font-bold">Quantity : {{detail.quantity}}.</ion-card-subtitle>
+                  <ion-card-subtitle class="font-bold">Price : {{detail.price}} DT</ion-card-subtitle>
+
+                </div>
+              </ion-card-header>
+
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+
+    </div>
+  </ion-card>
+
+  <ion-card *ngIf="selectedSegment === 'ready'">
+    <div *ngFor="let order of orders ; let i = index" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+
+      <ion-card-header class="flex items-center ">
+        <ion-card-title class="text-4xl">OrderId: 3568415
+        </ion-card-title>
+        <p class="text-lg">Order date: Feb 16, 15:45 | <span class="text-yellow-300 font-bold">Room: A5-12</span>
+        </p>
+
+      </ion-card-header>
+
+      <ion-card-content *ngFor="let detail of order.details" [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+        <ion-list *ngIf="detail.status === 'ready' || detail.status === 'canceled' ">
+          <ion-item>
+
+            <div class="grid grid-cols-3 items-center " [ngClass]="{ 'bg-slate-300': (i % 2 !== 0) }">
+
+
+              <img alt="Silhouette of mountains"
+                class="col-span-3 sm:col-span-1  p-10  hover:transform hover:scale-110 hover:transition hover:duration-300"
+                [src]=detail.image />
+
+              <ion-card-header class="col-span-3 sm:col-span-2 pt-0">
+                <ion-card-title class="text-3xl flex items-center">{{ detail.name}}
+                  <span
+                    [ngClass]="[detail.status === 'canceled' ? 'text-red-500 text-lg font-bold' : '', detail.status === 'ready' ? 'text-green-500 text-lg font-bold' : ''] "
+                    class="p-1">{{ detail.status }}</span>
+                  <ion-icon name="checkmark-done-sharp" size="small" color="success" *ngIf="detail.status ==='ready' "
+                    class="p-1"></ion-icon>
+                  <ion-icon name="close-circle-sharp" class="p-1" color="danger" size="small"
+                    *ngIf="detail.status ==='canceled' "></ion-icon>
+
+                </ion-card-title>
+                <ion-card-subtitle>{{detail.note}}</ion-card-subtitle>
+                <div class="flex justify-between pt-2">
+                  <ion-card-subtitle class="font-bold">Quantity : {{detail.quantity}}.</ion-card-subtitle>
+                  <ion-card-subtitle class="font-bold">Price : {{detail.price}} DT</ion-card-subtitle>
+
+                </div>
+              </ion-card-header>
+              <div class="col-span-3 sm:col-span-1 flex flex-col">
+
+              </div>
+            </div>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+
+    </div>
+  </ion-card>
 </ion-content>
