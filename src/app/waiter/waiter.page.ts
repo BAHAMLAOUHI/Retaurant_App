@@ -7,7 +7,7 @@ import { AlertController, AlertInput } from '@ionic/angular';
   styleUrls: ['./waiter.page.scss'],
 })
 export class WaiterPage implements OnInit {
-  selectedSegment: string = 'primary';
+  selectedSegment: string = 'secondary';
 
   orders = [
     {
@@ -233,6 +233,22 @@ export class WaiterPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  handleRefresh(event: any) {
+    this.showNoItemsMessage = true;
+    setTimeout(() => {
+      this.RefreshOrders();
+      event.target.complete();
+      this.showNoItemsMessage = false;
+    }, 1500);
+  }
+  showNoItemsMessage = false;
+
+  RefreshOrders() {
+    if (this.orders.length > 0) {
+      this.showPopupMessage();
+    }
   }
 
   ngOnInit() {
