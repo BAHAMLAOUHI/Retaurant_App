@@ -1,0 +1,50 @@
+ion-item {
+  --padding-start: 0;
+}
+:root {
+  --ion-color-secondary: #006600;
+  --ion-color-secondary-rgb: 0, 102, 0;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #005a00;
+  --ion-color-secondary-tint: #1a751a;
+}
+.item-native {
+  border-radius: var(--border-radius);
+  margin: 0px;
+  padding-inline-start: calc(var(--padding-start) + var(--ion-safe-area-left, 0px));
+  padding-inline-end: var(--padding-end);
+  padding-top: var(--padding-top);
+  padding-bottom: var(--padding-bottom);
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-decoration: inherit;
+  text-indent: inherit;
+  text-overflow: inherit;
+  text-transform: inherit;
+  text-align: inherit;
+  white-space: inherit;
+  color: inherit;
+  display: flex;
+  position: relative;
+  align-items: inherit;
+  justify-content: inherit;
+  width: 100%;
+  min-height: var(--min-height);
+  transition: var(--transition);
+  border-width: var(--border-width);
+  border-style: var(--border-style);
+  border-color: var(--border-color);
+  outline: none;
+  /* background: var(--background); */
+  overflow: inherit;
+  box-sizing: border-box;
+  z-index: 1;
+  
+}
+.custom-item {
+background: none !important;
+}
