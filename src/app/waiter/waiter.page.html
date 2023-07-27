@@ -5,57 +5,8 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <!-- <ion-segment color="primary" [(ngModel)]="selectedSegment" class="h-11">
-    <ion-segment-button value="primary">
-      <ion-label>All Orders</ion-label>
-    </ion-segment-button>
-    <ion-segment-button value="segment">
-      <ion-label>To Serve</ion-label>
-    </ion-segment-button>
-  </ion-segment> -->
-
   <ion-card color="{#F5F4F8}">
     <ion-card-content class="p-0 pt-3 pb-3">
-      <!-- to display all orders to the waiter ( first section )-->
-      <!-- <ion-list *ngIf="selectedSegment === 'primary'">  
-        <ng-container *ngIf="orders.length > 0; else noItemsMessage">
-          <ion-item>
-            <ion-title class="w-auto pl-0 mb-3">
-              there is {{ orders.length }} orders available :
-            </ion-title>
-          </ion-item>
-          <ng-container *ngFor="let order of orders; let i = index" >
-            <ng-container *ngFor="let item of order.pack">
-              <ion-item>
-                <ion-thumbnail slot="start">
-                  <img
-                    alt="Silhouette of mountains"
-                    [src]="item.image"
-                    class="w-14 h-14"
-                  />
-                </ion-thumbnail>
-                <div class="flex-col">
-                  <ion-label>{{ item.name }}</ion-label>
-                  <ion-label>Room: {{ item.room }}</ion-label>
-                </div>
-              </ion-item>
-            </ng-container>  
-            <div class="mt-3 h-3 " *ngIf="i !== orders.length - 1">
-              <hr class=" border-dashed border-t-2 border-gray-300"/>
-              
-            </div> 
-          </ng-container>
-        </ng-container>
-      
-        <ng-template #noItemsMessage>
-          <ion-item>
-            <ion-label class="text-center">There are no orders at this moment.</ion-label>
-          </ion-item>
-        </ng-template>
-      </ion-list> -->
-
-      <!-- To serve section (the second one) -->
-      <!-- <div *ngIf="selectedSegment === 'segment'"> -->
       <ng-container
         *ngIf="orders.length > 0 && orders[0].pack.length > 0 && showContent; else noItemsMessage"
       >
@@ -78,12 +29,8 @@
                   >
                 </div>
               </div>
-              <!-- <ion-item class="w-auto">
-                <ion-spinner name="lines-small" color="secondary"></ion-spinner>
-              </ion-item> -->
             </div>
 
-            <!-- to display the listed orders  -->
             <ion-card class="w-max ml-6">
               <ion-card-content class="p-0 pt-3 pb-3">
                 <ion-list>
@@ -119,14 +66,6 @@
                 <p>{{ item.description }}</p>
               </ion-label>
             </ion-item>
-            <!-- <div class="flex justify-center pt-5">
-            <img [src]="item.image" alt="food" class="w-64 h-60" />
-          </div>
-
-          <ion-card-header>
-            <ion-card-title>{{ item.name }}</ion-card-title>
-          </ion-card-header>
-          <ion-card-content>{{ item.description }}</ion-card-content> -->
           </ion-card>
           <div class="flex justify-between pr-6 pl-6 mt-4">
             <h2 class="text-HelloBlue">Total :</h2>
