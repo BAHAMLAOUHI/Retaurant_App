@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Blank </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,8 +12,21 @@
   </ion-header>
 
   <div id="container">
-    <h1 class="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div class="flex justify-evenly w-full">
+      <button routerLink="/waiter" class="bg-blue-400 p-5 rounded-xl mt-4 mb-4">
+        waiter
+      </button>
+      <button routerLink="/cooker" class="bg-blue-400 p-5 rounded-xl mt-4 mb-4">
+        cooker
+      </button>
+      <button routerLink="/qrcode" class="bg-blue-400 p-5 rounded-xl mt-4 mb-4">
+        qrcode
+      </button>
+    </div>
+    <h1 class="text-3xl font-bold underline">Hello world!</h1>
+    <h1>ID :{{id?.identifier}}</h1>
+    <h1>battery :{{battery?.batteryLevel}}</h1>
+    <h1>Device platform: {{info?.operatingSystem}}</h1>
+    <h1>{{info?.model}}</h1>
   </div>
 </ion-content>

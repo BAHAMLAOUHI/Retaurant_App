@@ -9,7 +9,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'waiter',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {
